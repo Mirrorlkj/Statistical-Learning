@@ -1,0 +1,51 @@
+---
+title: "Trump"
+author: "Kejing Li"
+date: "11/17/2019"
+output: github_document
+---
+
+```{r setup, echo = TRUE}
+library(tidyverse)
+library(broom)
+library(modelr)
+```
+
+```{r import}
+#import the data
+trump_data <- read_csv("data/trump.csv")
+```
+
+# Q1
+## Estimate a basic (single variable) linear regression model of the relationship between the importance of the video and feelings towards Donald Trump.
+```{r}
+#construct linear model
+trump_mod <- lm(trump ~ video, data = trump_data)
+tidy(trump_mod)
+```
+
+## Calculate predicted values
+```{r}
+trump_predict <- augment(trump_mod,
+                     newdata = data_grid(trump_data, video))
+trump_predict
+```
+
+## graph the relationship between the two variables using the predicted values, and determine whether there appears to be a significant relationship.
+
+```{r}
+ggplot(trump_data, aes(video)) +
+  geom_point(aes(y = trump)) +
+  geom_line(aes(y = .fitted), data = trump_predict, color = "red", size = 1) +
+  geom_point(aes(y = .fitted), data = trump_predict, color = "blue", size = 3)
+```
+
+__Answer:__ From the above estimation, there appears to be a significant relationship for two reasons:
+
+1. The model's p-value is 0, which indicates significance.
+1. It can be learned from the above graph that the more people care about the video, the lower their feeling thermometer ratings of trump will be expected. 
+
+
+```{r, echo = TRUE}
+devtools::session_info()
+```
