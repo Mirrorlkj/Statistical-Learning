@@ -2,7 +2,10 @@
 title: "Trump"
 author: "Kejing Li"
 date: "11/17/2019"
-output: github_document
+output: 
+  github_document:
+    toc: true
+    toc_depth: 1
 ---
 
 ```{r setup, echo = TRUE}
