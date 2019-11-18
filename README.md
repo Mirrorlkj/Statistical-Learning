@@ -17,9 +17,9 @@ This repo is a class exercise which contains two tasks
 
 __Task 1__
 
-1. [Trump_md](trump.md)
+1. [Trump_md](Trump.md)
 
-1. [Trump_rmd](trump.Rmd)
+1. [Trump_rmd](Trump.Rmd)
 
 __Task 2__
 
