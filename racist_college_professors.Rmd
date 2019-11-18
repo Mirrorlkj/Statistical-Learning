@@ -19,15 +19,17 @@ library(modelr)
 library(rcfss)
 library(patchwork)
 library(margins)
+theme_set(theme_bw())
 view(gss_colrac)
 ```
 
 # Hypothesis
 
 The determinants of individuals’ opinions on a racist college professors may come from three aspects (2-3 specific variables are selected in each categories for analysis purpose): 
--	Natural attributes: age, sex
--	Race: African American, Hispanic
--	Personal value: Authoritarianism Scale, Egalitarianism Scale, Tolerance Scale
+
+- Natural attributes: age, sex
+- Race: African American, Hispanic
+- Personal value: Authoritarianism Scale, Egalitarianism Scale, Tolerance Scale
 - Attitudes towards other social issues:Should Marijuana Be Made Legal, Have Gun in Home
 
 # Model Construction 
