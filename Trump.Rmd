@@ -81,10 +81,10 @@ coefplot(trump_mod_all,
 ```
 
 ## Provide written analysis interpreting the results.
-- First of all, all the variable have a p-value smaller than 0.5, indicating they have significant influences on the feeling thermometer ratings of trump.
+- First of all,except for the percentage of female, all the variables have p-values smaller than 0.05, indicating significant influences on the feeling thermometer ratings of trump.
 - The coefficient value signifies how much the mean of the dependent variable changes given a one-unit shift in the independent variable while holding other variables in the model constant. 
-  - In the graph, percentage of female, education level and attitudes towards the video have negative coefficient values. That is to say, females who are highly educated, especially those who care more about the video would possibly have more negative attitudes towards Donald Trump. 
-  - On the other hand, the more an individual leaning towards the Republican Party and the more older she/he is, the more likely he/she will have a positive attitudes towards Donald Trump. 
+  - In the graph, education level and attitudes towards the video have negative coefficient values. That is to say, the more highly educated and care about the video an individual is, the more negative attitude towards Donald Trump he/she will possibly have. 
+  - On the other hand, the more an individual leaning towards the Republican Party and the more older she/he is, the more likely he/she will have a positive attitude towards Donald Trump. 
   
 ```{r, echo = TRUE}
 devtools::session_info()

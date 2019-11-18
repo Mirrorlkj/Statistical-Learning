@@ -1,0 +1,46 @@
+---
+title: "Predicting attitudes towards racist college professors"
+author: "Kejing Li"
+date: "11/17/2019"
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 2
+---
+# Introduction 
+
+This report aims at predicting attitudes towards racist collge professors. Specifically, each respondent was asked **“Should a person who believes that Blacks are genetically inferior be allowed to teach in a college or university?”** Given the kerfuffle over Richard J. Herrnstein and Charles Murray’s The Bell Curve and the ostracization of Nobel Prize laureate James Watson over his controversial views on race and intelligence, this analysis will provide further insight into the public debate over this issue.
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(broom)
+library(modelr)
+library(rcfss)
+library(patchwork)
+library(margins)
+view(gss_colrac)
+```
+
+# Hypothesis
+
+The determinants of individuals’ opinions on a racist college professors may come from three aspects (2-3 specific variables are selected in each categories for analysis purpose): 
+-	Natural attributes: age, sex
+-	Race: African American, Hispanic
+-	Personal value: Authoritarianism Scale, Egalitarianism Scale, Tolerance Scale
+
+# Data Analysis 
+
+## Logistic model 
+```{r}
+# estimate logistic model using 
+colrac_model<- glm(colrac ~ age + sex + black + hispanic_2 + authoritarianism + egalit_scale + tolerance,
+                   data = gss_colrac,
+                   family = binomial)
+summary(colrac_model)
+```
+
+
+```{r, include = FALSE}
+devtools::session_info()
+```

@@ -10,14 +10,14 @@ Kejing Li
 library(tidyverse)
 ```
 
-    ## -- Attaching packages ------------------------------------------------------ tidyverse 1.2.1 --
+    ## -- Attaching packages ---------------------------------------------------------- tidyverse 1.2.1 --
 
     ## v ggplot2 3.2.1     v purrr   0.3.2
     ## v tibble  2.1.3     v dplyr   0.8.3
     ## v tidyr   1.0.0     v stringr 1.4.0
     ## v readr   1.3.1     v forcats 0.4.0
 
-    ## -- Conflicts --------------------------------------------------------- tidyverse_conflicts() --
+    ## -- Conflicts ------------------------------------------------------------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -151,20 +151,20 @@ coefplot(trump_mod_all,
 
 ## Provide written analysis interpreting the results.
 
-  - First of all, all the variable have a p-value smaller than 0.5,
-    indicating they have significant influences on the feeling
-    thermometer ratings of trump.
+  - First of all,except for the percentage of female, all the variables
+    have p-values smaller than 0.05, indicating significant influences
+    on the feeling thermometer ratings of trump.
   - The coefficient value signifies how much the mean of the dependent
     variable changes given a one-unit shift in the independent variable
     while holding other variables in the model constant.
-      - In the graph, percentage of female, education level and
-        attitudes towards the video have negative coefficient values.
-        That is to say, females who are highly educated, especially
-        those who care more about the video would possibly have more
-        negative attitudes towards Donald Trump.
+      - In the graph, education level and attitudes towards the video
+        have negative coefficient values. That is to say, the more
+        highly educated and care about the video an individual is, the
+        more negative attitude towards Donald Trump he/she will possibly
+        have.
       - On the other hand, the more an individual leaning towards the
         Republican Party and the more older she/he is, the more likely
-        he/she will have a positive attitudes towards Donald Trump.
+        he/she will have a positive attitude towards Donald Trump.
 
 <!-- end list -->
 
