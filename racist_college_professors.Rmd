@@ -93,8 +93,9 @@ p_tolerance <- ggplot(colrac, aes(x = tolerance,
 
 The modified model tells us:
 
-- If an individual's tolerence scale increases by 1, the probability the respondent believes the person should be allowed to teach increases by 51.76%.
-- If an individual's authoritarianism scale increases by 1, the probability the respondent believes the person should be allowed to teach increases by 14.3%. *However, the plot tells a different story, thus this relationship remains in question*
+- If an individual's tolerence scale increases by one unit, the probability the respondent believes the person should be allowed to teach increases by `r round((exp(0.5176) - 1),2)*100`%.
+- If an individual's authoritarianism scale increases by one unit, the probability the respondent believes the person should be allowed to teach increases by `r round((exp(0.143) - 1)*100,2)`%.
+*Note: the graph tells a different story because I plot the relationship between authoritarianism scale and attitudes without holding tolernce scale constant.*
 ```{r}
 #calculate predicted value
 colrac_model_accuracy <- augment(colrac_model_modified, type.predict = "response") %>%
@@ -150,7 +151,7 @@ The average marginal effect graph tells us under 0.5 significance level:
 - The expected difference in probability of the respondent believes the person should be allowed to teach associated with Tolerence Scale is a 9.2% increase.
 
 # Conclusion
-Among all, the tolerance rate of an individual best predicts his or her attitude towards racist collge professors. While the statistical model does show a similar pattern in authoritarianism Scale, though smaller in its effect size, the inconsistency of the model results and plot output makes this relationship suspicious. More data or alternative models may be considered to gain more insight into the relationship. 
+Among all, the tolerance rate of an individual best predicts his or her attitude towards racist collge professors. A similar, though smaller in its effect size, pattern in authoritarianism scale can also be detected. More varaiables and alternative models may be considered to gain more insight into the relationship. 
 
 ```{r, include = FALSE}
 devtools::session_info()
