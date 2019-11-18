@@ -28,18 +28,126 @@ The determinants of individuals’ opinions on a racist college professors may c
 -	Natural attributes: age, sex
 -	Race: African American, Hispanic
 -	Personal value: Authoritarianism Scale, Egalitarianism Scale, Tolerance Scale
+- Attitudes towards other social issues:Should Marijuana Be Made Legal, Have Gun in Home
 
-# Data Analysis 
+# Model Construction 
 
-## Logistic model 
+## Initial logistic model 
 ```{r}
-# estimate logistic model using 
-colrac_model<- glm(colrac ~ age + sex + black + hispanic_2 + authoritarianism + egalit_scale + tolerance,
+# estimate logistic model 
+colrac_model<- glm(colrac ~ age + sex + black + hispanic_2 + authoritarianism + egalit_scale + tolerance + grass + owngun,
                    data = gss_colrac,
                    family = binomial)
 summary(colrac_model)
 ```
+- The result of statistical model shows no significant differences in individuals with different sexes, races, egalitarianism scales and attitudes toward other social issues. These variables can be removed.
+- In the model, age has a low coefficient value, which means it makes but rather small impact on the attitudes of individuals, thus we rule out age variables as well. 
 
+
+## Modified Model
+```{r}
+colrac_model_modified <- glm(colrac ~  authoritarianism + tolerance,
+                   data = gss_colrac,
+                   family = binomial)
+tidy(colrac_model_modified)
+```
+
+### Visualization 
+```{r}
+colrac <- gss_colrac %>%
+  mutate(colrac = as.numeric(colrac))
+
+# plot Authoritarianism Scale
+p_authoritarianism <- 
+  ggplot(colrac, aes(x = authoritarianism,
+                     y = colrac)) +
+  scale_y_continuous(labels = scales::percent)+
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "glm",
+              method.args = list(family = "binomial"),
+              se = FALSE)+
+  labs(x = "Authoritarianism Scale",
+       y = "Predicted Probability of Attitudes")
+
+# plot Tolerance Scale
+p_tolerance <- ggplot(colrac, aes(x = tolerance,
+                                  y = colrac)) +
+  scale_y_continuous(labels = scales::percent)+
+  geom_point(alpha = 0.1)+
+  geom_smooth(method = "glm",
+              method.args = list(family = "binomial"),
+              se = FALSE)+ 
+  labs(x = "Tolerance Scale",
+       y = "Predicted Probability of Attitudes")
+
+
+  p_authoritarianism +
+  p_tolerance +
+  plot_annotation(
+    title = "Relationship Between Tolerence and Authoritarianism \nScales and Attitudes",
+  )
+```
+
+
+The modified model tells us:
+
+- If an individual's tolerence scale increases by 1, the probability the respondent believes the person should be allowed to teach increases by 51.76%.
+- If an individual's authoritarianism scale increases by 1, the probability the respondent believes the person should be allowed to teach increases by 14.3%. *However, the plot tells a different story, thus this relationship remains in question*
+```{r}
+#calculate predicted value
+colrac_model_accuracy <- augment(colrac_model_modified, type.predict = "response") %>%
+  mutate(.pred = as.numeric(.fitted > .5))
+
+#calculate error rate
+colrac_model_err <- mean(colrac_model_accuracy$colrac != colrac_model_accuracy$.pred,
+                      na.rm = TRUE)
+```
+- The model's validity can be learned through calculation of its error rate. The model is relatively effective beacuse it only has `r round(colrac_model_err,4)*100`% chance being wrong.
+
+
+# Marginal Effect 
+
+```{r}
+# estimate marginal effects
+colrac_marg <- margins(colrac_model_modified)
+
+# extract average marginal effects
+colrac_marg_tbl <- summary(colrac_marg) %>%
+  as_tibble() %>%
+  mutate(
+    # fix variable labels
+    factor = recode(
+      factor,
+      authoritarianism
+ = "Authoritarianism Scale",
+      tolerance
+ = "Tolerance Scale",
+    )
+  )
+colrac_marg_tbl
+```
+
+```{r}
+# plot using ggplot()
+ggplot(data = colrac_marg_tbl,
+       mapping = aes(x = factor,
+                     y = AME,
+                     ymin = lower,
+                     ymax = upper)) +
+  # add line indicating null (0) effect
+  geom_hline(yintercept = 0, color = "gray50") +
+  # add point range plot to visualize estimate and confidence interval
+  geom_pointrange() +
+  coord_flip() +
+  labs(x = NULL,
+       y = "Average marginal effect")
+```
+The average marginal effect graph tells us under 0.5 significance level:
+- The expected difference in probability of the respondent believes the person should be allowed to teach associated with Authoritarianism Scale is a 2.5% increase.
+- The expected difference in probability of the respondent believes the person should be allowed to teach associated with Tolerence Scale is a 9.2% increase.
+
+# Conclusion
+Among all, the tolerance rate of an individual best predicts his or her attitude towards racist collge professors. While the statistical model does show a similar pattern in authoritarianism Scale, though smaller in its effect size, the inconsistency of the model results and plot output makes this relationship suspicious. More data or alternative models may be considered to gain more insight into the relationship. 
 
 ```{r, include = FALSE}
 devtools::session_info()
