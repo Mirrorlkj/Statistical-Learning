@@ -46,7 +46,7 @@ summary(colrac_model)
 - In the model, age has a low coefficient value, which means it makes but rather small impact on the attitudes of individuals, thus we rule out age variables as well. 
 
 
-## Modified Model
+## Modified model
 ```{r}
 colrac_model_modified <- glm(colrac ~  authoritarianism + tolerance,
                    data = gss_colrac,
@@ -145,6 +145,7 @@ ggplot(data = colrac_marg_tbl,
        y = "Average marginal effect")
 ```
 The average marginal effect graph tells us under 0.5 significance level:
+
 - The expected difference in probability of the respondent believes the person should be allowed to teach associated with Authoritarianism Scale is a 2.5% increase.
 - The expected difference in probability of the respondent believes the person should be allowed to teach associated with Tolerence Scale is a 9.2% increase.
 
