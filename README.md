@@ -1,4 +1,4 @@
-# hw07
+# Statistical Learning
 
 ## Required Package 
 
@@ -13,15 +13,14 @@ library(coefplot)
 ```
 
 ## Introduction
-This repo is a class exercise which contains two tasks 
 
-__Task 1__
+__Task 1: Trump__
 
 1. [Trump_md](Trump.md)
 
 1. [Trump_rmd](Trump.Rmd)
 
-__Task 2__
+__Task 2: Racist Professors __
 
 1. [colrac_pdf](racist_college_professors.pdf)
 
