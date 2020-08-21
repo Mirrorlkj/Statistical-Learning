@@ -20,7 +20,7 @@ __Task 1: Trump__
 
 1. [Trump_rmd](Trump.Rmd)
 
-__Task 2: Racist Professors __
+__Task 2: Racist Professors__
 
 1. [colrac_pdf](racist_college_professors.pdf)
 
